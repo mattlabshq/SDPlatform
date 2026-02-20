@@ -76,17 +76,25 @@
         <a href="app.html" class="login-button">Sign In to Your Account</a>
     </div>
     
-    <script>
-        // Show logout message if coming from logout
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('logout') === 'true') {
-            document.getElementById('logoutMessage').classList.add('show');
-            
-            // Clear the URL parameter after showing message
-            setTimeout(function() {
-                window.history.replaceState({}, document.title, 'login.html');
-            }, 100);
-        }
-    </script>
+   <script>
+    // Show logout message if coming from logout
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('logout') === 'true') {
+        document.getElementById('logoutMessage').classList.add('show');
+        
+        // Clear the URL parameter after showing message
+        setTimeout(function() {
+            window.history.replaceState({}, document.title, 'login.html');
+        }, 3000); // Show for 3 seconds
+    }
+    
+    // Alternative: Check referrer to detect logout
+    if (document.referrer.includes('app.html')) {
+        document.getElementById('logoutMessage').classList.add('show');
+        setTimeout(function() {
+            document.getElementById('logoutMessage').classList.remove('show');
+        }, 3000);
+    }
+</script>
 </body>
 </html>
