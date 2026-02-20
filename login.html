@@ -22,34 +22,71 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
             max-width: 450px;
             width: 90%;
-        }
-        .logo {
             text-align: center;
-            margin-bottom: 30px;
         }
         h1 {
             color: #2c3e50;
-            font-size: 28px;
-            margin: 0 0 10px 0;
+            font-size: 32px;
+            margin-bottom: 10px;
         }
         .subtitle {
             color: #7f8c8d;
-            font-size: 14px;
+            font-size: 16px;
             margin-bottom: 30px;
+        }
+        .login-button {
+            display: inline-block;
+            padding: 14px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+        .logout-message {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .logout-message.show {
+            display: block;
         }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <div class="logo">
-            <h1>CareCreek</h1>
-            <p class="subtitle">SDP Facilitator Platform</p>
+        <h1>CareCreek</h1>
+        <p class="subtitle">SDP Facilitator Platform</p>
+        
+        <div id="logoutMessage" class="logout-message">
+            You have been successfully logged out.
         </div>
         
-        <!-- Caspio Login Form -->
-        <script type="text/javascript" src="https://app.carecreek.ai/dp/5912f000c987eb71d22a4d178b21/emb"></script>
+        <a href="app.html" class="login-button">Sign In to Your Account</a>
     </div>
-</body>
-</html>
+    
+    <script>
+        // Show logout message if coming from logout
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('logout') === 'true') {
+            document.getElementById('logoutMessage').classList.add('show');
+            
+            // Clear the URL parameter after showing message
+            setTimeout(function() {
+                window.history.replaceState({}, document.title, 'login.html');
+            }, 100);
+        }
+    </script>
 </body>
 </html>
