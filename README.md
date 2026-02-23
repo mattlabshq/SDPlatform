@@ -1,1 +1,1 @@
-# SDPlatform
+# SD Navigator
