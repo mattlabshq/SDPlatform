@@ -62,6 +62,18 @@
         .logout-message.show {
             display: block;
         }
+        .session-expired-message {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            color: #856404;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .session-expired-message.show {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -72,29 +84,34 @@
         <div id="logoutMessage" class="logout-message">
             You have been successfully logged out.
         </div>
+
+        <div id="sessionExpiredMessage" class="session-expired-message">
+            ⏱ Your session expired after 2 hours of inactivity. Please sign in again.
+        </div>
         
         <a href="app.html" class="login-button">Sign In to Your Account</a>
     </div>
     
-   <script>
-    // Show logout message if coming from logout
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('logout') === 'true') {
-        document.getElementById('logoutMessage').classList.add('show');
-        
-        // Clear the URL parameter after showing message
-        setTimeout(function() {
-            window.history.replaceState({}, document.title, 'login.html');
-        }, 30000); // Show for 3 seconds
-    }
-    
-    // Alternative: Check referrer to detect logout
-    if (document.referrer.includes('app.html')) {
-        document.getElementById('logoutMessage').classList.add('show');
-        setTimeout(function() {
-            document.getElementById('logoutMessage').classList.remove('show');
-        }, 3000);
-    }
-</script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+
+        if (urlParams.get('logout') === 'true') {
+            document.getElementById('logoutMessage').classList.add('show');
+            setTimeout(function() {
+                window.history.replaceState({}, document.title, 'login.html');
+            }, 30000);
+        }
+
+        if (urlParams.get('reason') === 'session_expired') {
+            document.getElementById('sessionExpiredMessage').classList.add('show');
+        }
+
+        if (document.referrer.includes('app.html')) {
+            document.getElementById('logoutMessage').classList.add('show');
+            setTimeout(function() {
+                document.getElementById('logoutMessage').classList.remove('show');
+            }, 3000);
+        }
+    </script>
 </body>
 </html>
